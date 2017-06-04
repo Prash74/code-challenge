@@ -32,6 +32,7 @@ class Shutterfly:
         self.site_visits = pd.DataFrame(columns=['key', 'event_time',
                                                  'customer_id', 'tags'])
         self.ltv = pd.DataFrame(columns=['Customer ID', 'Customer Last Name',
+                                         'Total Revenue', 'Number of Visits',
                                          'LTV value'])
         self.size = 0
 
@@ -115,7 +116,7 @@ class Shutterfly:
                 dq_records.append([ev, "Invalid Record due to missing key"])
                 dq += 1
 
-        #To check if any records are rejected due to DQ errors
+        """To check if any records are rejected due to DQ errors"""
         if len(dq_records) > 0:
             self.write_dq(dq_records)
 
@@ -132,14 +133,15 @@ class Shutterfly:
         print "Ingestion Completed at : ", datetime.datetime.now().time()
         print "================================================"
 
-        #To write the log for the current Ingestion
+        """To write the log for the current Ingestion"""
         self.log(new, update, dq, dup)
 
     def TopXSimpleLTVCustomers(self, x):
         """To display Top X customers based on their Lifetime Value ('LTV')"""
         self.ltv = pd.DataFrame(columns=['key', 'Customer Last Name',
                                          'LTV value'])
-        print "\nDisplaying Top %s Customers based on LTV Value as of %s" % (x, datetime.datetime.now())
+        print "\nDisplaying Top %s Customers based on LTV Value as of %s"\
+              % (x, datetime.datetime.now())
         revenue = self.orders[['customer_id',
                                'total_amount']].groupby('customer_id').sum()
         visits = self.site_visits['customer_id'].value_counts()
@@ -147,18 +149,34 @@ class Shutterfly:
         for i in customers:
             try:
                 idx = len(self.ltv)
+                weeks = self.site_visits.loc[self.site_visits['customer_id'] == i, 'event_time'].tolist()
+                if len(weeks) == 1:
+                    num_wks = 1
+                elif len(weeks) == 0:
+                    continue
+                elif len(weeks) > 1:
+                    num_wks = (self.calc_julian(max(weeks)) - self.calc_julian(min(weeks))) / 7
+                    num_wks = int(num_wks)
                 a = (revenue.loc[i, 'total_amount'] / visits.loc[i]) * \
-                    (visits.loc[i]/52.0)
+                    (visits.loc[i] / num_wks)
                 ltv = 52 * a * 10
                 self.ltv.loc[idx, 'key'] = idx+1
                 self.ltv.loc[idx, 'Customer ID'] = i
                 self.ltv.loc[idx, 'Customer Last Name'] = self.customers.loc[self.customers['key'][self.customers['key'] == i].index[0], 'last_name']
+                self.ltv.loc[idx, 'Total Revenue'] = revenue.loc[i, 'total_amount']
+                self.ltv.loc[idx, 'Number of Visits'] = visits.loc[i]
                 self.ltv.loc[idx, 'LTV value'] = int(ltv)
             except:
                 pass
 
         self.ltv.sort_values(by="LTV value", inplace=True, ascending=False)
         print tabulate(self.ltv.head(int(x)), headers='keys', tablefmt='psql')
+
+    def calc_julian(self, n):
+        dt = n[:10].split("-")
+        dt = [int(i) for i in dt]
+        dt2 = datetime.date(dt[0], dt[1], dt[2])
+        return dt2.toordinal() + 1721424.5
 
     def log(self, new, update, dq, dup):
         """To create log file to store current ingestion details"""
