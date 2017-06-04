@@ -1,0 +1,11 @@
+================================================
+Current Data Store Size : 22
+================================================
+Number of Events Ingested           : 22
+Number of Events Updated            : 0
+Number of Events Rejected due to DQ : 0
+Number of Duplicat Events           : 0
+================================================
+Updated Data Store Size : 22
+Ingestion Completed at : 18:57:32.729771
+================================================

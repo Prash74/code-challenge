@@ -157,6 +157,8 @@ class Shutterfly:
                 elif len(weeks) > 1:
                     num_wks = (self.calc_julian(max(weeks)) - self.calc_julian(min(weeks))) / 7
                     num_wks = int(num_wks)
+                    if num_wks == 0:
+                        num_wks = 1
                 a = (revenue.loc[i, 'total_amount'] / visits.loc[i]) * \
                     (visits.loc[i] / num_wks)
                 ltv = 52 * a * 10
