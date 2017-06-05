@@ -5,6 +5,7 @@
 {"type": "ORDER", "verb": "NEW", "key": "68d84e5d1a44", "event_time": "2017-01-06T12:55:55.555Z", "customer_id": "96f55c7d8f42", "total_amount": "17.34 USD"},
 {"type": "CUSTOMER", "verb": "NEW", "key": "96f55c7d8f43", "event_time": "2017-01-06T12:46:46.384Z", "last_name": "Erica", "adr_city": "Middletown", "adr_state": "AK"},
 {"type": "SITE_VISIT", "verb": "NEW", "key": "ac05e815503f", "event_time": "2017-01-06T12:45:52.041Z", "customer_id": "96f55c7d8f43", "tags": [{"some key": "some value"}]},
+{"type": "SITE_VISIT", "verb": "NEW", "key": "ac05e815403f", "event_time": "2017-01-07T12:45:52.041Z", "customer_id": "96f55c7d8f43", "tags": [{"some key": "some value"}]},
 {"type": "IMAGE", "verb": "UPLOAD", "key": "d8ede43b1d8f", "event_time": "2017-01-06T12:47:12.344Z", "customer_id": "96f55c7d8f43", "camera_make": "Canon", "camera_model": "EOS 80D"},
 {"type": "ORDER", "verb": "NEW", "key": "68d84e5d1a53", "event_time": "2017-01-06T12:55:55.555Z", "customer_id": "96f55c7d8f43", "total_amount": "22.34 USD"},
 {"type": "ORDER", "verb": "NEW", "key": "68d84e5d1a54", "event_time": "2017-01-06T12:55:55.555Z", "customer_id": "96f55c7d8f43", "total_amount": "57.34 USD"},
@@ -18,4 +19,4 @@
 {"type": "IMAGE", "verb": "UPLOAD", "key": "d8ede43b1d6f", "event_time": "2017-01-06T12:47:12.344Z", "customer_id": "96f55c7d8f45", "camera_make": "Canon", "camera_model": "EOS 80D"},
 {"type": "ORDER", "verb": "NEW", "key": "68d84e5d1a73", "event_time": "2017-01-06T12:55:55.555Z", "customer_id": "96f55c7d8f45", "total_amount": "222.34 USD"},
 {"type": "ORDER", "verb": "NEW", "key": "68d84e5d1a74", "event_time": "2017-01-06T12:55:55.555Z", "customer_id": "96f55c7d8f45", "total_amount": "317.34 USD"},
-{"type": "ORDER", "verb": "NEW", "key": "68d84e5d1a75", "event_time": "2017-01-06T12:55:55.555Z", "customer_id": "96f55c7d8f45", "total_amount": "2657.34 USD"}]
+{"type": "ORDER", "verb": "NEW", "key": "68d84e5d1a75", "event_time": "2017-01-06T12:55:55.555Z", "customer_id": "96f55c7d8f45", "total_amount": "657.34 USD"}]
