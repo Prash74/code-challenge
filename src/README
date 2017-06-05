@@ -34,8 +34,7 @@ The program has 4 options. They are, 1. Ingest 2. LTV 3. Display 4.Exit
 
 1. Decision Approach :
 
-    The first step is to store the incoming events in an in-memory data structure which would allow to efficiently access the
-    data for further analysis and processing.
+    The first step is to store the incoming events in an in-memory data structure which would allow to efficiently access the data for further analysis and processing.
 
     For the purpose, Pandas DataFrame can be used as it allows to store the events in-memory
 
@@ -57,12 +56,12 @@ The program has 4 options. They are, 1. Ingest 2. LTV 3. Display 4.Exit
 
     1. Injest Events
     2. Display Top X Customers based on LTV Value
-    3. Handle Incoming Invalid and Duplicate Events
+    3. Handle Incoming Duplicate Events
     4. Make a Fail proof self-sustaining system
-    5. Use Logging module to extend the current logging feature in the system
 
 5. Future Work :
 
-    1. Expand to include more DQ Checks
+    1. Expand to include more DQ Checks (Field Specific DQ Checks)
     2. Add feature to re-process events
     3. Distributed setup to expand storage and processing capabilities
+    4. Use Logging module to extend the current logging feature in the system
