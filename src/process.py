@@ -1,4 +1,5 @@
 #!/usr/bin/python
+from __future__ import division
 import pandas as pd
 import json
 import datetime
@@ -147,29 +148,26 @@ class Shutterfly:
         visits = self.site_visits['customer_id'].value_counts()
         customers = list(set(self.customers['key']))
         for i in customers:
-            try:
-                idx = len(self.ltv)
-                weeks = self.site_visits.loc[self.site_visits['customer_id'] == i, 'event_time'].tolist()
-                if len(weeks) == 1:
+            idx = len(self.ltv)
+            weeks = self.site_visits.loc[self.site_visits['customer_id'] == i, 'event_time'].tolist()
+            if len(weeks) == 1:
+                num_wks = 1
+            elif len(weeks) == 0:
+                continue
+            elif len(weeks) > 1:
+                num_wks = (self.calc_julian(max(weeks)) - self.calc_julian(min(weeks))) / 7
+                num_wks = int(num_wks)
+                if num_wks == 0:
                     num_wks = 1
-                elif len(weeks) == 0:
-                    continue
-                elif len(weeks) > 1:
-                    num_wks = (self.calc_julian(max(weeks)) - self.calc_julian(min(weeks))) / 7
-                    num_wks = int(num_wks)
-                    if num_wks == 0:
-                        num_wks = 1
-                a = (revenue.loc[i, 'total_amount'] / visits.loc[i]) * \
-                    (visits.loc[i] / num_wks)
-                ltv = 52 * a * 10
-                self.ltv.loc[idx, 'key'] = idx+1
-                self.ltv.loc[idx, 'Customer ID'] = i
-                self.ltv.loc[idx, 'Customer Last Name'] = self.customers.loc[self.customers['key'][self.customers['key'] == i].index[0], 'last_name']
-                self.ltv.loc[idx, 'Total Revenue'] = float(revenue.loc[i, 'total_amount'])
-                self.ltv.loc[idx, 'Number of Visits'] = visits.loc[i]
-                self.ltv.loc[idx, 'LTV value'] = int(ltv)
-            except:
-                pass
+            a = (revenue.loc[i, 'total_amount'] / visits.loc[i]) * \
+                (visits.loc[i] / num_wks)
+            ltv = 52 * a * 10
+            self.ltv.loc[idx, 'key'] = idx+1
+            self.ltv.loc[idx, 'Customer ID'] = i
+            self.ltv.loc[idx, 'Customer Last Name'] = self.customers.loc[self.customers['key'][self.customers['key'] == i].index[0], 'last_name']
+            self.ltv.loc[idx, 'Total Revenue'] = float(revenue.loc[i, 'total_amount'])
+            self.ltv.loc[idx, 'Number of Visits'] = visits.loc[i]
+            self.ltv.loc[idx, 'LTV value'] = int(ltv)
 
         self.ltv.sort_values(by="LTV value", inplace=True, ascending=False)
         print tabulate(self.ltv.head(int(x)), headers='keys', tablefmt='psql')

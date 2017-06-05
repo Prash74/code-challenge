@@ -1,2 +1,0 @@
-[{u'total_amount': u'657.34 USD', u'event_time': u'2017-01-06T12:55:55.555Z', u'verb': u'UPDATE', u'key': u'68d84e5d1432', u'customer_id': u'96f55c7d8f45', u'type': u'ORDER'}, 'Invalid Record due to missing key']
-[{u'total_amount': u'657.34 USD', u'event_time': u'2017-01-06T12:55:55.555Z', u'verb': u'UPDATE', u'key': u'68d84e5d1432', u'customer_id': u'96f55c7d8f45', u'type': u'ORDER'}, 'Invalid Record due to missing key']
