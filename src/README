@@ -16,54 +16,53 @@ Once the setup is complete, the python program can be executed as follow,
 Step 3:
 The program has 4 options. They are, 1. Ingest 2. LTV 3. Display 4.Exit
 
-1. Ingest Option:
-  --> To ingest Events into the Data Store, Enter "1"
-  --> When prompted for the file name, Enter the file name with entire path.
-  --> Once the ingestion is complete, the details of the current ingestion will be displayed
-  --> The same details can be found in the log file under the "logs" folder
-  -->
+    1. Ingest Option:
+      --> To ingest Events into the Data Store, Enter "1"
+      --> When prompted for the file name, Enter the file name with entire path.
+      --> Once the ingestion is complete, the details of the current ingestion will be displayed
+      --> The same details can be found in the log file under the "logs" folder
 
-2. LTV Option:
-  To display the top X customers based on their LTV value, Enter "2"
-  When prompted for X, Enter the X value and the Top X customers will be displayed
+    2. LTV Option:
+      To display the top X customers based on their LTV value, Enter "2"
+      When prompted for X, Enter the X value and the Top X customers will be displayed
 
-3. Display Option:
-  To display the entire DataStore in table format, Enter "3"
+    3. Display Option:
+      To display the entire DataStore in table format, Enter "3"
 
-4. Exit Option:
-  To Exit from the system, Enter "4"
+    4. Exit Option:
+      To Exit from the system, Enter "4"
 
 1. Decision Approach :
 
-The first step is to store the incoming events in an in-memory data structure which would allow to efficiently access the
-data for further analysis and processing.
+    The first step is to store the incoming events in an in-memory data structure which would allow to efficiently access the
+    data for further analysis and processing.
 
-For the purpose, Pandas DataFrame can be used as it allows to store the events in-memory
+    For the purpose, Pandas DataFrame can be used as it allows to store the events in-memory
 
 2. Important Feature of a DataStore:
 
-There are few salient feature a DataStore System should possess. They are,
+    There are few salient feature a DataStore System should possess. They are,
 
-  1. DQ Check Feature
-  2. Log File Creation
-  3. Rejected Events with Reason
-  4. Handle Duplicate Events to avoid duplicate records in the Datastore
+      1. DQ Check Feature
+      2. Log File Creation
+      3. Rejected Events with Reason
+      4. Handle Duplicate Events to avoid duplicate records in the Datastore
 
 3. Possible DQ Checks:
 
-  1. An Event with "UPDATE" verb but the key is not present in the Datastore
-  2. Invalid Format of Each field or Invalid Operation
+    1. An Event with "UPDATE" verb but the key is not present in the Datastore
+    2. Invalid Format of Each field or Invalid Operation
 
 4. Design Decisions :
 
-  1. Injest Events
-  2. Display Top X Customers based on LTV Value
-  3. Handle Incoming Invalid and Duplicate Events
-  4. Make a Fail proof self-sustaining system
-  5. Use Logging module to extend the current logging feature in the system
+    1. Injest Events
+    2. Display Top X Customers based on LTV Value
+    3. Handle Incoming Invalid and Duplicate Events
+    4. Make a Fail proof self-sustaining system
+    5. Use Logging module to extend the current logging feature in the system
 
 5. Future Work :
 
-  1. Expand to include more DQ Checks
-  2. Add feature to re-process events
-  3. Distributed setup to expand storage and processing capabilities
+    1. Expand to include more DQ Checks
+    2. Add feature to re-process events
+    3. Distributed setup to expand storage and processing capabilities
