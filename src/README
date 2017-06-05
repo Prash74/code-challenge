@@ -60,6 +60,7 @@ There are few salient feature a DataStore System should possess. They are,
   2. Display Top X Customers based on LTV Value
   3. Handle Incoming Invalid and Duplicate Events
   4. Make a Fail proof self-sustaining system
+  5. Use Logging module to extend the current logging feature in the system
 
 5. Future Work :
 

@@ -116,11 +116,7 @@ class Shutterfly:
                 dq_records.append([ev, "Invalid Record due to missing key"])
                 dq += 1
 
-        """To check if any records are rejected due to DQ errors"""
-        if len(dq_records) > 0:
-            self.write_dq(dq_records)
-
-        print "================================================"
+        print "\n================================================"
         print "Current Data Store Size : %d" % self.get_size()
         print "================================================"
         print "Number of Events Ingested           : %d" % new
@@ -135,6 +131,10 @@ class Shutterfly:
 
         """To write the log for the current Ingestion"""
         self.log(new, update, dq, dup)
+
+        """To check if any records are rejected due to DQ errors"""
+        if len(dq_records) > 0:
+            self.write_dq(dq_records)
 
     def TopXSimpleLTVCustomers(self, x):
         """To display Top X customers based on their Lifetime Value ('LTV')"""
@@ -165,7 +165,7 @@ class Shutterfly:
                 self.ltv.loc[idx, 'key'] = idx+1
                 self.ltv.loc[idx, 'Customer ID'] = i
                 self.ltv.loc[idx, 'Customer Last Name'] = self.customers.loc[self.customers['key'][self.customers['key'] == i].index[0], 'last_name']
-                self.ltv.loc[idx, 'Total Revenue'] = revenue.loc[i, 'total_amount']
+                self.ltv.loc[idx, 'Total Revenue'] = float(revenue.loc[i, 'total_amount'])
                 self.ltv.loc[idx, 'Number of Visits'] = visits.loc[i]
                 self.ltv.loc[idx, 'LTV value'] = int(ltv)
             except:
@@ -196,6 +196,9 @@ class Shutterfly:
         fl.write("\nIngestion Completed at : " + str(datetime.datetime.now().time()))
         fl.write("\n================================================")
         fl.close()
+        print "\n========================================================"
+        print "\n\nCurrent Ingestion Log File : ", logfile_nm
+        print "\n\n========================================================"
 
     def DQ_check(self, ev):
         """To run DQ checks on each incoming Event"""
@@ -236,6 +239,10 @@ class Shutterfly:
         for i in dq_records:
             fil.write(str(i)+"\n")
         fil.close()
+        print "\n==============================================="
+        print "Few Records rejected due to DQ Error"
+        print "================================================"
+        print "Please check the DQ log file : ", dqfile_nm
 
 
 def main():
@@ -247,9 +254,12 @@ def main():
         if opt == 'Ingest' or opt == "1":
             # "../sample_input/events.txt"
             file_nm = raw_input("Enter File Name with Path : ")
-            with open(file_nm) as f:
-                data = json.load(f)
-            sh.Ingest(data)
+            try:
+                with open(file_nm) as f:
+                    data = json.load(f)
+                sh.Ingest(data)
+            except:
+                print "No Such File Exists/Invalid File Name or Format"
         elif opt == 'LTV' or opt == "2":
             x = raw_input("Enter the Value for x: ")
             sh.TopXSimpleLTVCustomers(x)
