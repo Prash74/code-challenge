@@ -36,7 +36,7 @@ The program has 4 options. They are, 1. Ingest 2. LTV 3. Display 4.Exit
 
     The first step is to store the incoming events in an in-memory data structure which would allow to efficiently access the data for further analysis and processing.
 
-    For the purpose, Pandas DataFrame can be used as it allows to store the events in-memory
+    For the purpose, Pandas DataFrame can be used as it allows to store the events in-memory efficiently
 
 2. Important Feature of a DataStore:
 
